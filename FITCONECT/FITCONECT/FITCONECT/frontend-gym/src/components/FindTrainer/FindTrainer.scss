@@ -1,0 +1,128 @@
+.trainer-details-expanded {
+  animation: fadeIn 0.3s ease;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+
+  h4 { margin-top: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Garantir que a tabela não esconda os botões */
+.users-table {
+  overflow: visible !important;
+  
+  tbody tr {
+    position: relative;
+  }
+  
+  td {
+    overflow: visible !important;
+    
+    /* Coluna de ações com mais espaço e controlo */
+    &:last-child {
+      min-width: 180px;
+      padding: 10px 15px;
+      white-space: nowrap;
+      overflow: visible !important;
+    }
+  }
+}
+
+/* Garantir visibilidade dos botões de ação */
+.btn-admin {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  min-width: 150px;
+  
+  &.btn-admin-primary {
+    background: #00a8e8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    
+    &:hover {
+      background: #0088c2;
+    }
+  }
+  
+  &.btn-admin-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    
+    &:hover {
+      background: #c82333;
+    }
+  }
+}
+
+/* Banner de boas-vindas */
+.welcome-banner {
+  background: linear-gradient(135deg, #00a8e8 0%, #0088c2 100%);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 8px rgba(0, 168, 232, 0.2);
+  animation: slideDown 0.4s ease;
+  
+  .welcome-icon {
+    font-size: 32px;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    flex: 1;
+  }
+  
+  .close-banner {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

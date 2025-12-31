@@ -1,0 +1,480 @@
+// ============================================================================
+// FICHEIRO: src/styles/themes.scss
+// Sistema de Temas Global - Variáveis CSS
+// ============================================================================
+
+// ============================================================================
+// TEMA LIGHT (Padrão)
+// ============================================================================
+:root,
+body.light-theme {
+  // Cores de Fundo
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-app: #ffffff;
+  --bg-card: #ffffff;
+  --bg-hover: #f8f9ff;
+  --bg-input: #fafafa;
+  --bg-input-focus: #ffffff;
+  
+  // Cores de Texto
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --text-muted: #6b7280;
+  --text-main: #000000;
+  
+  // Cores de Borda
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --border-color: #d0d0d0;
+  
+  // Cores de Ação
+  --primary-blue: #3b82f6;
+  --primary-blue-hover: #2563eb;
+  --primary-blue-light: #dbeafe;
+  
+  --success-green: #10b981;
+  --success-green-hover: #059669;
+  --success-green-light: #d1fae5;
+  
+  --danger-red: #ef4444;
+  --danger-red-hover: #dc2626;
+  --danger-red-light: #fee2e2;
+  
+  --warning-orange: #f59e0b;
+  --warning-orange-light: #fef3c7;
+  
+  // Sombras
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  // Outros
+  --error-bg: #ffeeee;
+  --error-border: #ffcccc;
+  --error-text: #cc3333;
+  --footer-border: #e0e0e0;
+  
+  // Overlay/Modal
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --modal-bg: #ffffff;
+}
+
+// ============================================================================
+// TEMA DARK
+// ============================================================================
+body.dark-theme {
+  // Cores de Fundo
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #1e1e1e;
+  --bg-app:#1e1e1e;
+  --bg-card: #1e1e1e;
+  --bg-hover: #2d3748;
+  --bg-input: #2c2c2c;
+  --bg-input-focus: #252525;
+  
+  // Cores de Texto
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-muted: #b0b0b0;
+  --text-main: #ffffff;
+  
+  // Cores de Borda
+  --border-primary: #334155;
+  --border-secondary: #475569;
+  --border-color: #333333;
+  
+  // Cores de Ação (ajustadas para melhor contraste no dark)
+  --primary-blue: #60a5fa;
+  --primary-blue-hover: #3b82f6;
+  --primary-blue-light: #1e3a8a;
+  
+  --success-green: #34d399;
+  --success-green-hover: #10b981;
+  --success-green-light: #065f46;
+  
+  --danger-red: #f87171;
+  --danger-red-hover: #ef4444;
+  --danger-red-light: #7f1d1d;
+  
+  --warning-orange: #fbbf24;
+  --warning-orange-light: #78350f;
+  
+  // Sombras (mais suaves no dark)
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  
+  // Outros
+  --error-bg: #2d1a1a;
+  --error-border: #4d2626;
+  --error-text: #ff8080;
+  --footer-border: #333333;
+  
+  // Overlay/Modal
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+  --modal-bg: #1e293b;
+}
+
+// ============================================================================
+// CLASSES UTILITÁRIAS PARA TRANSIÇÕES SUAVES
+// ============================================================================
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+// Desabilitar transições em elementos interativos para melhor UX
+button,
+input,
+select,
+textarea,
+a {
+  transition: background-color 0.2s ease, 
+              color 0.2s ease, 
+              border-color 0.2s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+// ============================================================================
+// ESTILOS GLOBAIS QUE USAM AS VARIÁVEIS
+// ============================================================================
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+}
+
+// Cards
+.card,
+.admin-card,
+.profile-card,
+.exercise-card,
+.trainer-card,
+.request-card {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+// Inputs e Forms
+input,
+select,
+textarea,
+.form-input,
+.form-select,
+.form-textarea {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-secondary) !important;
+  
+  &:focus {
+    background-color: var(--bg-input-focus) !important;
+    border-color: var(--primary-blue) !important;
+  }
+  
+  &::placeholder {
+    color: var(--text-tertiary) !important;
+  }
+}
+
+// Botões
+.btn-primary,
+.btn-admin-primary {
+  background-color: var(--primary-blue) !important;
+  color: white !important;
+  
+  &:hover:not(:disabled) {
+    background-color: var(--primary-blue-hover) !important;
+  }
+}
+
+.btn-secondary {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  
+  &:hover:not(:disabled) {
+    background-color: var(--border-secondary) !important;
+  }
+}
+
+.btn-success {
+  background-color: var(--success-green) !important;
+  color: white !important;
+  
+  &:hover:not(:disabled) {
+    background-color: var(--success-green-hover) !important;
+  }
+}
+
+.btn-danger {
+  background-color: var(--danger-red) !important;
+  color: white !important;
+  
+  &:hover:not(:disabled) {
+    background-color: var(--danger-red-hover) !important;
+  }
+}
+
+// Tabelas
+table,
+.users-table,
+.plans-table {
+  thead {
+    background-color: var(--bg-secondary) !important;
+    
+    th {
+      color: var(--text-secondary) !important;
+      border-color: var(--border-primary) !important;
+    }
+  }
+  
+  tbody {
+    tr {
+      border-color: var(--border-primary) !important;
+      
+      &:hover {
+        background-color: var(--bg-hover) !important;
+      }
+      
+      td {
+        color: var(--text-primary) !important;
+        border-color: var(--border-primary) !important;
+      }
+    }
+  }
+}
+
+// Status Badges
+.status-badge {
+  &.active {
+    background-color: var(--success-green-light) !important;
+    color: var(--success-green) !important;
+  }
+  
+  &.inactive {
+    background-color: var(--danger-red-light) !important;
+    color: var(--danger-red) !important;
+  }
+  
+  &.pending {
+    background-color: var(--warning-orange-light) !important;
+    color: var(--warning-orange) !important;
+  }
+}
+
+// Alertas
+.alert,
+.error-message,
+.success-message {
+  &.alert-success,
+  &.success-message {
+    background-color: var(--success-green-light) !important;
+    color: var(--success-green) !important;
+    border-color: var(--success-green) !important;
+  }
+  
+  &.alert-danger,
+  &.alert-error,
+  &.error-message {
+    background-color: var(--error-bg) !important;
+    color: var(--error-text) !important;
+    border-color: var(--error-border) !important;
+  }
+}
+
+// Sidebar
+.trainer-sidebar,
+.client-sidebar {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  
+  .nav-item {
+    color: var(--text-secondary) !important;
+    
+    &:hover:not(.active) {
+      background-color: var(--bg-hover) !important;
+      color: var(--text-primary) !important;
+    }
+    
+    &.active {
+      background-color: var(--primary-blue-light) !important;
+      color: var(--primary-blue) !important;
+    }
+  }
+  
+  .sidebar-header h2 {
+    color: var(--primary-blue) !important;
+  }
+}
+
+// Layout Principal
+.trainer-main-content,
+.client-main-content {
+  background: var(--bg-secondary) !important;
+}
+
+// Modais e Overlays
+.modal,
+.overlay {
+  background-color: var(--overlay-bg) !important;
+  
+  .modal-content {
+    background-color: var(--modal-bg) !important;
+    color: var(--text-primary) !important;
+  }
+}
+
+// Headers e Títulos
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+
+p, span, div {
+  color: var(--text-primary);
+}
+
+// Links
+a {
+  color: var(--primary-blue) !important;
+  
+  &:hover {
+    color: var(--primary-blue-hover) !important;
+  }
+}
+
+// Scrollbars (Webkit)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--text-tertiary);
+  }
+}
+
+// ============================================================================
+// THEME TOGGLER BUTTON
+// ============================================================================
+.theme-toggler {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  
+  .theme-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// ============================================================================
+// COMPONENTES ESPECÍFICOS
+// ============================================================================
+
+// Dashboard
+.dashboard-header {
+  h1 {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Calendário de Treinos
+.day-card {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-primary) !important;
+  
+  &.today {
+    border-color: var(--primary-blue) !important;
+  }
+  
+  &.completed {
+    border-left-color: var(--success-green) !important;
+  }
+}
+
+// Chat
+.chat-messages {
+  background-color: var(--bg-secondary) !important;
+  
+  .message {
+    &.own .message-content {
+      background-color: var(--primary-blue) !important;
+      color: white !important;
+    }
+    
+    &.other .message-content {
+      background-color: var(--bg-card) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+  }
+}
+
+// Filtros
+.filters-card,
+.filter-group {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-primary) !important;
+  
+  label {
+    color: var(--text-primary) !important;
+  }
+}
+
+// Exercícios
+.exercise-view,
+.exercise-form-view {
+  background-color: var(--bg-card) !important;
+  
+  .exercise-section {
+    h3 {
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+  }
+}
+
+// Loading States
+.loading-container,
+.loading-state,
+.loading {
+  color: var(--text-secondary) !important;
+}

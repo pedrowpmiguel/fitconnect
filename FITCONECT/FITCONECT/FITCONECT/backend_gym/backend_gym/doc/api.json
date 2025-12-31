@@ -1,0 +1,854 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FitConnect API",
+    "description": "API REST completa para a plataforma de fitness FitConnect - Gestão de utilizadores, treinos, exercícios e logs",
+    "version": "1.0.0",
+    "contact": {
+      "name": "FitConnect Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor de desenvolvimento"
+    },
+    {
+      "url": "https://api.fitconnect.com/api",
+      "description": "Servidor de produção"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "phone": { "type": "string" },
+          "role": { "type": "string", "enum": ["client", "trainer", "admin"] },
+          "profilePicture": { "type": "string" }
+        }
+      },
+      "WorkoutPlan": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "trainer": { "type": "string" },
+          "client": { "type": "string" },
+          "isActive": { "type": "boolean" }
+        }
+      },
+      "Exercise": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "difficulty": { "type": "string" }
+        }
+      }
+    }
+  },
+  "security": [
+    { "bearerAuth": [] }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "tags": ["Health"],
+        "security": [],
+        "responses": { "200": { "description": "Servidor funcionando" } }
+      }
+    },
+    "/auth/register/client": {
+      "post": {
+        "summary": "Registar cliente",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "phone": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Cliente registado" } }
+      }
+    },
+    "/auth/register/trainer": {
+      "post": {
+        "summary": "Registar trainer",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "phone": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Trainer registado" } }
+      }
+    },
+    "/auth/register/admin": {
+      "post": {
+        "summary": "Registar admin",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Admin criado" } }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Login bem-sucedido" } }
+      }
+    },
+    "/auth/login/qr": {
+      "post": {
+        "summary": "Login com QR Code",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "qrCode": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Login bem-sucedido" } }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "tags": ["Autenticação"],
+        "responses": { "200": { "description": "Logout bem-sucedido" } }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "summary": "Refrescar token",
+        "tags": ["Autenticação"],
+        "responses": { "200": { "description": "Token renovado" } }
+      }
+    },
+    "/auth/change-password": {
+      "post": {
+        "summary": "Alterar senha",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": { "type": "string" },
+                  "newPassword": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Senha alterada" } }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "Solicitar reset de senha",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Email enviado" } }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "Reset de senha",
+        "tags": ["Autenticação"],
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Senha resetada" } }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "summary": "Obter perfil",
+        "tags": ["Utilizadores"],
+        "responses": { "200": { "description": "Dados do perfil" } }
+      },
+      "put": {
+        "summary": "Atualizar perfil",
+        "tags": ["Utilizadores"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "bio": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Perfil atualizado" } }
+      }
+    },
+    "/users/profile/trainer": {
+      "put": {
+        "summary": "Atualizar perfil de trainer",
+        "tags": ["Utilizadores"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "specialization": { "type": "string" },
+                  "experience": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Perfil atualizado" } }
+      }
+    },
+    "/users/reset-password": {
+      "post": {
+        "summary": "Reset de senha (rota alternativa)",
+        "tags": ["Utilizadores"],
+        "security": [],
+        "responses": { "200": { "description": "Processado" } }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Listar utilizadores",
+        "tags": ["Utilizadores"],
+        "responses": { "200": { "description": "Lista de utilizadores" } }
+      }
+    },
+    "/users/trainers": {
+      "get": {
+        "summary": "Listar trainers",
+        "tags": ["Utilizadores"],
+        "security": [],
+        "responses": { "200": { "description": "Lista de trainers" } }
+      }
+    },
+    "/users/trainer/clients": {
+      "get": {
+        "summary": "Clientes do trainer",
+        "tags": ["Utilizadores"],
+        "responses": { "200": { "description": "Lista de clientes" } }
+      },
+      "post": {
+        "summary": "Registar cliente (Trainer)",
+        "tags": ["Utilizadores"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Cliente registado" } }
+      }
+    },
+    "/users/trainer/assign-client": {
+      "post": {
+        "summary": "Atribuir cliente",
+        "tags": ["Utilizadores"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientId": { "type": "string" },
+                  "trainerId": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Cliente atribuído" } }
+      }
+    },
+    "/users/client/request-trainer-change": {
+      "post": {
+        "summary": "Solicitar mudança de trainer",
+        "tags": ["Utilizadores"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newTrainerId": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Pedido criado" } }
+      }
+    },
+    "/users/trainer/{id}/approve": {
+      "put": {
+        "summary": "Aprovar trainer",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Trainer aprovado" } }
+      }
+    },
+    "/users/admin/trainer-change-requests": {
+      "get": {
+        "summary": "Pedidos de mudança",
+        "tags": ["Admin"],
+        "responses": { "200": { "description": "Lista de pedidos" } }
+      }
+    },
+    "/users/admin/trainer-change/{clientId}": {
+      "get": {
+        "summary": "Obter pedido",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Detalhes" } }
+      },
+      "put": {
+        "summary": "Processar mudança",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "newTrainerId": { "type": "string" },
+                  "status": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Processado" } }
+      }
+    },
+    "/users/admin/trainers": {
+      "post": {
+        "summary": "Criar trainer",
+        "tags": ["Admin"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Trainer criado" } }
+      }
+    },
+    "/users/admin/trainers/{id}": {
+      "put": {
+        "summary": "Atualizar trainer",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "summary": "Eliminar trainer",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Eliminado" } }
+      }
+    },
+    "/users/admin/user/{id}/toggle-status": {
+      "put": {
+        "summary": "Ativar/Desativar utilizador",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Status alterado" } }
+      }
+    },
+    "/users/admin/user/{id}": {
+      "get": {
+        "summary": "Obter utilizador",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Detalhes" } }
+      },
+      "delete": {
+        "summary": "Eliminar utilizador",
+        "tags": ["Admin"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Eliminado" } }
+      }
+    },
+    "/messages": {
+      "post": {
+        "summary": "Enviar mensagem",
+        "tags": ["Mensagens"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientId": { "type": "string" },
+                  "message": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Enviada" } }
+      }
+    },
+    "/messages/alert/workout-missed": {
+      "post": {
+        "summary": "Alerta de treino perdido",
+        "tags": ["Mensagens"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientId": { "type": "string" },
+                  "planId": { "type": "string" },
+                  "reason": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Alerta enviado" } }
+      }
+    },
+    "/messages/conversation/{otherUserId}": {
+      "get": {
+        "summary": "Conversa com utilizador",
+        "tags": ["Mensagens"],
+        "parameters": [
+          { "name": "otherUserId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Mensagens" } }
+      }
+    },
+    "/messages/conversations": {
+      "get": {
+        "summary": "Listar conversas",
+        "tags": ["Mensagens"],
+        "responses": { "200": { "description": "Conversas" } }
+      }
+    },
+    "/messages/unread-count": {
+      "get": {
+        "summary": "Contar não lidas",
+        "tags": ["Mensagens"],
+        "responses": { "200": { "description": "Contagem" } }
+      }
+    },
+    "/messages/contact": {
+      "get": {
+        "summary": "Contacto atual",
+        "tags": ["Mensagens"],
+        "responses": { "200": { "description": "Dados" } }
+      }
+    },
+    "/messages/{id}/read": {
+      "put": {
+        "summary": "Marcar como lida",
+        "tags": ["Mensagens"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Marcada" } }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "summary": "Listar notificações",
+        "tags": ["Notificações"],
+        "responses": { "200": { "description": "Notificações" } }
+      }
+    },
+    "/notifications/unread-count": {
+      "get": {
+        "summary": "Contar não lidas",
+        "tags": ["Notificações"],
+        "responses": { "200": { "description": "Contagem" } }
+      }
+    },
+    "/notifications/{id}": {
+      "get": {
+        "summary": "Obter notificação",
+        "tags": ["Notificações"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Detalhes" } }
+      },
+      "delete": {
+        "summary": "Eliminar notificação",
+        "tags": ["Notificações"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Eliminada" } }
+      }
+    },
+    "/notifications/{id}/read": {
+      "put": {
+        "summary": "Marcar como lida",
+        "tags": ["Notificações"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Marcada" } }
+      }
+    },
+    "/notifications/read-all": {
+      "put": {
+        "summary": "Marcar todas como lidas",
+        "tags": ["Notificações"],
+        "responses": { "200": { "description": "Marcadas" } }
+      }
+    },
+    "/trainer-requests/request/{trainerId}": {
+      "post": {
+        "summary": "Solicitar trainer",
+        "tags": ["Pedidos de Trainer"],
+        "parameters": [
+          { "name": "trainerId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "201": { "description": "Pedido criado" } }
+      }
+    },
+    "/trainer-requests/my-requests": {
+      "get": {
+        "summary": "Meus pedidos",
+        "tags": ["Pedidos de Trainer"],
+        "responses": { "200": { "description": "Pedidos" } }
+      }
+    },
+    "/trainer-requests/my-trainer-requests": {
+      "get": {
+        "summary": "Pedidos recebidos",
+        "tags": ["Pedidos de Trainer"],
+        "responses": { "200": { "description": "Pedidos" } }
+      }
+    },
+    "/trainer-requests/accept/{requestId}": {
+      "put": {
+        "summary": "Aceitar pedido",
+        "tags": ["Pedidos de Trainer"],
+        "parameters": [
+          { "name": "requestId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Aceite" } }
+      }
+    },
+    "/trainer-requests/reject/{requestId}": {
+      "put": {
+        "summary": "Rejeitar pedido",
+        "tags": ["Pedidos de Trainer"],
+        "parameters": [
+          { "name": "requestId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Rejeitado" } }
+      }
+    },
+    "/uploads": {
+      "post": {
+        "summary": "Upload de ficheiros",
+        "tags": ["Uploads"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": { "type": "string", "format": "binary" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Enviados" } }
+      }
+    },
+    "/workouts/plans": {
+      "get": {
+        "summary": "Listar planos",
+        "tags": ["Planos de Treino"],
+        "responses": { "200": { "description": "Planos" } }
+      },
+      "post": {
+        "summary": "Criar plano",
+        "tags": ["Planos de Treino"],
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/workouts/plans/{id}": {
+      "get": {
+        "summary": "Obter plano",
+        "tags": ["Planos de Treino"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Plano" } }
+      },
+      "put": {
+        "summary": "Atualizar plano",
+        "tags": ["Planos de Treino"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "summary": "Eliminar plano",
+        "tags": ["Planos de Treino"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Eliminado" } }
+      }
+    },
+    "/workouts/plans/{id}/toggle": {
+      "put": {
+        "summary": "Ativar/Desativar",
+        "tags": ["Planos de Treino"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Status alterado" } }
+      }
+    },
+    "/workouts/plans/{id}/alert-client-missed": {
+      "post": {
+        "summary": "Alerta ao cliente",
+        "tags": ["Planos de Treino"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Alerta enviado" } }
+      }
+    },
+    "/workouts/exercises": {
+      "get": {
+        "summary": "Listar exercícios",
+        "tags": ["Exercícios"],
+        "security": [],
+        "responses": { "200": { "description": "Exercícios" } }
+      },
+      "post": {
+        "summary": "Criar exercício",
+        "tags": ["Exercícios"],
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/workouts/exercises/{id}": {
+      "get": {
+        "summary": "Obter exercício",
+        "tags": ["Exercícios"],
+        "security": [],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Exercício" } }
+      },
+      "put": {
+        "summary": "Atualizar exercício",
+        "tags": ["Exercícios"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Atualizado" } }
+      }
+    },
+    "/workouts/exercises/my-exercises": {
+      "get": {
+        "summary": "Meus exercícios",
+        "tags": ["Exercícios"],
+        "responses": { "200": { "description": "Exercícios" } }
+      }
+    },
+    "/workouts/client/{clientId}/missed-workouts": {
+      "get": {
+        "summary": "Treinos perdidos",
+        "tags": ["Logs de Treino"],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Treinos" } }
+      }
+    },
+    "/workouts/client/{clientId}/logs": {
+      "get": {
+        "summary": "Logs do cliente",
+        "tags": ["Logs de Treino"],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Logs" } }
+      }
+    },
+    "/workouts/client/{clientId}/logs/{workoutLogId}": {
+      "get": {
+        "summary": "Detalhe do log",
+        "tags": ["Logs de Treino"],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "workoutLogId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Detalhes" } }
+      }
+    },
+    "/workouts/clients/{clientId}/dashboard": {
+      "get": {
+        "summary": "Dashboard",
+        "tags": ["Dashboard"],
+        "security": [],
+        "parameters": [
+          { "name": "clientId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Dados" } }
+      }
+    },
+    "/workouts/stats": {
+      "get": {
+        "summary": "Estatísticas",
+        "tags": ["Estatísticas"],
+        "responses": { "200": { "description": "Dados" } }
+      }
+    }
+  }
+}

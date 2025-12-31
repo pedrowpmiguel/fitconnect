@@ -1,0 +1,42 @@
+.register-page-wrapper {
+    min-height: 100vh; // altura total do ecrã
+    display: flex;
+    justify-content: center; // centraliza horizontalmente
+    align-items: center;     // centraliza verticalmente
+    background: var(--bg-app); // mesma cor de fundo da app
+    padding: 20px; // espaço para mobile
+  
+    .register-container {
+      width: 100%;
+      max-width: 520px; // tamanho máximo
+      padding: 48px 40px;
+      border-radius: 8px;
+      background: var(--bg-card);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      transition: all 0.3s ease;
+  
+      h2 {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+  
+      .register-form {
+        width: 100%;
+      }
+    }
+  }
+  
+  /* Responsivo Mobile */
+  @media (max-width: 480px) {
+    .register-page-wrapper {
+      padding: 16px;
+  
+      .register-container {
+        padding: 32px 24px;
+      }
+    }
+  }
+  

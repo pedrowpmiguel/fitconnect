@@ -1,0 +1,141 @@
+
+
+.dashboard {
+  background: var(--bg-app);
+  color: var(--text-main);
+  
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+  }
+  
+  input, select, textarea {
+    background: var(--input-bg);
+    color: var(--text-main);
+    border-color: var(--border-color);
+  }
+}
+
+.admin-dashboard {
+  padding: 2rem;
+  background-color: var(--text-dark);
+  min-height: 100vh;
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+  }
+
+  // Estilo de Card igual ao do Trainer
+  .admin-card {
+    background-color: var(--text-dark);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+
+    h3 {
+      color: var(--text-dark);
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  // Formulário usando o teu sistema de grelha (form-row)
+  .admin-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      &:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+    }
+  }
+
+  // Tabela cores de borda
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th {
+      background: var(--bg-card);
+      padding: 1rem;
+      text-align: left;
+      color: var(--text-primary);
+      border-bottom: 2px solid  var(--border-primary);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-dark);
+    }
+  }
+
+  // Botões usando as cores padrão
+  .btn-admin {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+
+    &-primary {
+      background-color: var(--primary-blue);
+      color: white;
+      &:hover { background-color: #2563eb; }
+    }
+
+    &-success {
+      background-color: var(--success-green);
+      color: white;
+    }
+
+    &-danger {
+      background-color: var(--danger-red);
+      color: white;
+    }
+  }
+
+  // Badges de Status
+  .status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    &.active { background: #dcfce7; color: var(--success-green); }
+    &.inactive { background: #fee2e2; color: var(--danger-red); }
+  }
+}

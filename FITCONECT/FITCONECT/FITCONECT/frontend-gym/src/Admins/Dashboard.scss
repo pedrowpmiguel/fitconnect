@@ -1,0 +1,162 @@
+$primary: #3b82f6;
+$success: #10b981;
+$danger: #e11d48;
+$text-main: #1e293b;
+$text-muted: #64748b;
+$bg-body: #f8fafc;
+$border: #e2e8f0;
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  font-family: 'Inter', sans-serif;
+
+  // --- HEADER & BRAND ---
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f1f5f9;
+
+    .header-brand-section {
+      .brand-name {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: $primary;
+        background: #eef2ff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      h1 { font-size: 1.75rem; color: $text-main; margin: 0; font-weight: 700; }
+      p { color: $text-muted; margin: 4px 0 0 0; font-size: 0.95rem; }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  // --- BOTÕES ---
+  .btn-admin {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    &.btn-primary { background: $primary; color: white; }
+    &.btn-secondary { background: #f1f5f9; color: $text-main; }
+    &.btn-success { background: $success; color: white; }
+    &:hover { opacity: 0.9; transform: translateY(-1px); }
+  }
+
+  .btn-logout-modern {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #fff1f2;
+    color: $danger;
+    border: 1px solid #fecdd3;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $danger;
+      color: white;
+      border-color: $danger;
+      box-shadow: 0 4px 12px rgba($danger, 0.2);
+      svg { transform: translateX(3px); }
+    }
+  }
+
+  // --- CARDS & TABS ---
+  .admin-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid $border;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    &.no-padding { padding: 0; overflow: hidden; }
+  }
+
+  .dashboard-tabs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    button {
+      background: none; border: none; padding: 10px 0;
+      color: $text-muted; font-weight: 600; cursor: pointer;
+      position: relative;
+      &.active {
+        color: $primary;
+        &::after {
+          content: ''; position: absolute; bottom: 0; left: 0;
+          width: 100%; height: 3px; background: $primary; border-radius: 3px;
+        }
+      }
+    }
+  }
+
+  // --- TABELAS ---
+  .table-container {
+    .table-filter-header {
+      padding: 1.25rem;
+      background: var(--text-dark);;
+      border-bottom: 1px solid $border;
+      display: flex; align-items: center; gap: 12px;
+      label { font-weight: 600; color: $text-main; font-size: 0.9rem; }
+      .select-modern { padding: 6px 12px; border-radius: 6px; border: 1px solid $border; }
+    }
+
+    .users-table {
+      width: 100%; border-collapse: collapse;
+      th { background:var(--text-dark); padding: 12px 20px; text-align: left; font-size: 0.8rem; color: $text-muted; text-transform: uppercase; }
+      td { padding: 14px 20px; border-bottom: 1px solid var(--text-dark); }
+      
+      .user-cell {
+        display: flex; align-items: center; gap: 12px;
+        .avatar-mini { 
+          width: 32px; height: 32px; background: var(--text-dark); color: $primary;
+          border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+        }
+        .name { font-weight: 600; color: $text-main; }
+        .username { font-size: 0.8rem; color: $text-muted; }
+      }
+    }
+  }
+
+  .status-pill {
+    padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+    &.active { background: #dcfce7; color: #15803d; }
+    &.inactive { background: #fee2e2; color: #b91c1c; }
+  }
+
+  .btn-table {
+    padding: 6px 12px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    &.btn-approve { background: $success; color: white; margin-right: 8px; }
+    &.btn-enable { background: $primary; color: white; }
+    &.btn-disable { background: #f1f5f9; color: $text-muted; }
+    &.btn-danger { background: $danger; color: white; }
+  }
+}
+
+.alert {
+  padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 500;
+  &.alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+  &.alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+}
+
+.animate-in { animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

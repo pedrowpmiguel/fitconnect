@@ -1,0 +1,1320 @@
+{
+	"info": {
+		"_postman_id": "02d7a36b-83e7-45c1-963a-13d7ac3d43b6",
+		"name": "Gym Platform API Collection",
+		"description": "Coleção completa de testes para a Gym Platform API com variáveis globais e descrições.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42120904"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "1.1 Registo de Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"cliente1\",\n  \"email\": \"cliente1@example.com\",\n  \"password\": \"Password123\",\n  \"firstName\": \"João\",\n  \"lastName\": \"Silva\",\n  \"phone\": \"912345678\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"gender\": \"male\",\n  \"role\": \"client\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Registo de Personal Trainer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"trainer1\",\n  \"email\": \"trainer1@example.com\",\n  \"password\": \"Password123\",\n  \"firstName\": \"Maria\",\n  \"lastName\": \"Santos\",\n  \"phone\": \"987654321\",\n  \"dateOfBirth\": \"1985-05-15\",\n  \"gender\": \"female\",\n  \"role\": \"trainer\",\n  \"specialization\": [\n    \"Musculação\",\n    \"Cardio\"\n  ],\n  \"experience\": 5,\n  \"bio\": \"Personal trainer com 5 anos de experiência\",\n  \"hourlyRate\": 50\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Registo de Administrador",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin1\",\n  \"email\": \"admin1@example.com\",\n  \"password\": \"Password123\",\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Admin\",\n  \"phone\": \"999999999\",\n  \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.4 Login Cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"cliente1\",\n  \"password\": \"Password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.5 Login Personal Trainer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"trainer1\",\n  \"password\": \"Password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.6 Login Administrador",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin1\",\n  \"password\": \"Password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.7 Login por QR Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"qrData\": \"{\\\"userId\\\":\\\"USER_ID\\\",\\\"username\\\":\\\"cliente1\\\",\\\"timestamp\\\":1640995200000}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login/qr",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								"qr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.8 Verificar Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.9 Gerar QR Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/qr/generate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"qr",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.10 Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gestão de Utilizadores",
+			"item": [
+				{
+					"name": "2.1 Obter Perfil Atual",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Atualizar Perfil",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"João Atualizado\",\n  \"lastName\": \"Silva Atualizado\",\n  \"phone\": \"912345679\",\n  \"bio\": \"Nova bio do utilizador\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Atualizar Dados de Personal Trainer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"specialization\": [\n    \"Musculação\",\n    \"Cardio\",\n    \"Funcional\"\n  ],\n  \"experience\": 6,\n  \"bio\": \"Personal trainer experiente\",\n  \"hourlyRate\": 60\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/profile/trainer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile",
+								"trainer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Listar Utilizadores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users?page=1&limit=10&role=client",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "role",
+									"value": "client"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Listar Personal Trainers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/trainers?page=1&limit=10&isApproved=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trainers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "isApproved",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Obter Utilizador por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Listar Clientes do Trainer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/trainer/clients?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trainer",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Atribuir Cliente a Trainer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": \"{{client_id}}\",\n  \"trainerId\": \"{{trainer_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/trainer/assign-client",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trainer",
+								"assign-client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.9 Solicitar Mudança de Trainer (Cliente)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"requestedTrainerId\": \"NEW_TRAINER_ID\",\n  \"reason\": \"Preciso de um trainer com especialização em yoga\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/client/request-trainer-change",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"client",
+								"request-trainer-change"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Funcionalidades Administrativas",
+			"item": [
+				{
+					"name": "3.1 Aprovar Personal Trainer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isApproved\": true,\n  \"reason\": \"Documentação verificada e experiência comprovada\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/trainer/{{trainer_id}}/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"trainer",
+								"{{trainer_id}}",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Listar Pedidos de Mudança de Trainer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/admin/trainer-change-requests?page=1&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"admin",
+								"trainer-change-requests"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Processar Pedido de Mudança",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"approved\": true,\n  \"reason\": \"Pedido aprovado após análise\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/admin/trainer-change/{{client_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"admin",
+								"trainer-change",
+								"{{client_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.4 Ativar/Desativar Utilizador",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isActive\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/admin/user/{{user_id}}/toggle-status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"admin",
+								"user",
+								"{{user_id}}",
+								"toggle-status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planos de Treino - Personal Trainers",
+			"item": [
+				{
+					"name": "4.1 Criar Exercício",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Agachamento\",\n  \"description\": \"Exercício fundamental para pernas\",\n  \"muscleGroups\": [\n    \"quadríceps\",\n    \"glúteos\"\n  ],\n  \"equipment\": [\n    \"peso_livre\"\n  ],\n  \"difficulty\": \"iniciante\",\n  \"instructions\": \"Mantenha as costas retas e desça até formar 90 graus\",\n  \"videoUrl\": \"https://example.com/video/agachamento\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.2 Criar Exercício - Flexão",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Flexão\",\n  \"description\": \"Exercício para peito e tríceps\",\n  \"muscleGroups\": [\n    \"peito\",\n    \"tríceps\"\n  ],\n  \"equipment\": [\n    \"corpo_livre\"\n  ],\n  \"difficulty\": \"iniciante\",\n  \"instructions\": \"Mantenha o corpo alinhado e desça até quase tocar o chão\",\n  \"videoUrl\": \"https://example.com/video/flexao\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.3 Criar Exercício - Prancha",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Prancha\",\n  \"description\": \"Exercício isométrico para core\",\n  \"muscleGroups\": [\n    \"abdômen\",\n    \"core\"\n  ],\n  \"equipment\": [\n    \"corpo_livre\"\n  ],\n  \"difficulty\": \"iniciante\",\n  \"instructions\": \"Mantenha o corpo reto como uma prancha\",\n  \"videoUrl\": \"https://example.com/video/prancha\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/exercises",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.4 Listar Exercícios",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/exercises?page=1&limit=20&muscleGroups=quadríceps,glúteos&difficulty=iniciante",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "muscleGroups",
+									"value": "quadríceps,glúteos"
+								},
+								{
+									"key": "difficulty",
+									"value": "iniciante"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.5 Criar Plano de Treino",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Plano Iniciante - Musculação\",\n  \"description\": \"Plano para iniciantes em musculação\",\n  \"clientId\": \"{{client_id}}\",\n  \"frequency\": \"3x\",\n  \"sessions\": [],\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-28\",\n  \"goals\": [\n    \"ganho_massa\",\n    \"força\"\n  ],\n  \"level\": \"iniciante\",\n  \"notes\": \"Plano personalizado para iniciante\",\n  \"totalWeeks\": 4\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/plans",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.6 Listar Planos do Trainer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/plans?page=1&limit=10&clientId={{client_id}}&frequency=3x",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"plans"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}"
+								},
+								{
+									"key": "frequency",
+									"value": "3x"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.7 Obter Plano Específico",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/plans/{{plan_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"plans",
+								"{{plan_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.8 Atualizar Plano de Treino",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Plano Iniciante - Musculação Atualizado\",\n  \"description\": \"Plano atualizado com novos exercícios\",\n  \"notes\": \"Plano melhorado após feedback do cliente\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/plans/{{plan_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"plans",
+								"{{plan_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.9 Ativar/Desativar Plano",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isActive\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/workouts/plans/{{plan_id}}/toggle",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"plans",
+								"{{plan_id}}",
+								"toggle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.10 Estatísticas dos Planos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{trainer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/workouts/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"workouts",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planos de Treino - Clientes",
+			"item": [
+				{
+					"name": "5.1 Listar Planos do Cliente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/plans?page=1&limit=10&isActive=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"plans"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "isActive",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.2 Obter Plano Específico",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/plans/{{plan_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"plans",
+								"{{plan_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.3 Obter Treino do Dia",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/today",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"today"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.4 Registrar Conclusão de Treino",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"workoutPlanId\": \"{{plan_id}}\",\n  \"sessionId\": \"{{session_id}}\",\n  \"week\": 1,\n  \"dayOfWeek\": \"monday\",\n  \"actualDuration\": 50,\n  \"exercises\": [],\n  \"overallNotes\": \"Treino bom, senti-me com energia\",\n  \"difficulty\": \"médio\",\n  \"energy\": \"alta\",\n  \"mood\": \"bom\",\n  \"painLevel\": \"nenhuma\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/logs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.5 Histórico de Treinos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/logs?page=1&limit=10&week=1&dayOfWeek=monday",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "week",
+									"value": "1"
+								},
+								{
+									"key": "dayOfWeek",
+									"value": "monday"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.6 Estatísticas do Cliente",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{client_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/client/workouts/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"workouts",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "6.1 Verificar Status do Servidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "trainer_token",
+			"value": ""
+		},
+		{
+			"key": "client_token",
+			"value": ""
+		},
+		{
+			"key": "admin_token",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "plan_id",
+			"value": ""
+		},
+		{
+			"key": "exercise_id",
+			"value": ""
+		},
+		{
+			"key": "session_id",
+			"value": ""
+		},
+		{
+			"key": "client_id",
+			"value": ""
+		},
+		{
+			"key": "trainer_id",
+			"value": ""
+		}
+	]
+}
