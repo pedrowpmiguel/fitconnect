@@ -29,8 +29,8 @@ import { authenticateToken } from "./middleware/auth.js";
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-// Conectar à base de dados
-connectDB();
+// Conectar à base de dados (aguardar a conexão antes de iniciar o servidor)
+await connectDB();
 
 const app = express();
 
@@ -50,7 +50,7 @@ app.use(helmet());
 
 // Configurar CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "fitconnect-xi.vercel.app",
+  origin: process.env.FRONTEND_URL || "http://fitconnect-xi.vercel.app",
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
